@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://kli-util-v1.x-road.eu/producer" xmlns:wsdl="http://www.w3.org/ns/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xrd="http://x-road.eu/xsd/x-road.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://kli-util-v1.x-road.eu/producer">
+	<types>
+		<schema targetNamespace="http://kli-util-v1.x-road.eu/producer" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-road.eu/xsd/x-road.xsd" schemaLocation="http://x-road.eu/xsd/x-road.xsd"/>
+			<import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
+
+			<element name="addNumbers">
+				<complexType>
+					<sequence>
+						<element name="request">
+							<complexType>
+								<sequence>
+									<element name="firstInteger" type="integer">
+										<annotation>
+											<appinfo>
+												<xrd:title xml:lang="en">First integer in addition</xrd:title>
+											</appinfo>
+										</annotation>
+									</element>
+									<element name="secondInteger" type="integer">
+										<annotation>
+											<appinfo>
+												<xrd:title xml:lang="en">Second integer in addition</xrd:title>
+											</appinfo>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="addNumbersResponse">
+				<complexType>
+					<sequence>
+						<element name="request">
+							<complexType>
+								<sequence>
+									<element name="firstInteger" type="integer">
+									</element>
+									<element name="secondInteger" type="integer">
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+						<element name="response">
+							<complexType>
+								<sequence>
+									<element minOccurs="0" name="faultCode" type="xrd:faultCode"/>
+									<element minOccurs="0" name="faultString" type="xrd:faultString"/>
+									<element name="result" type="integer">
+										<annotation>
+											<appinfo>
+												<xrd:title xml:lang="en">Result of addition</xrd:title>
+											</appinfo>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+		<!--
+			Insert implementation specific schema
+		-->
+
+			</schema>
+	</types>
+	<message name="addNumbers">
+		<part name="body" element="tns:addNumbers"/>
+	</message>
+	<message name="addNumbersResponse">
+		<part name="body" element="tns:addNumbersResponse"/>
+	</message>
+	<message name="listMethods">
+		<part name="body" element="xrd:listMethods"/>
+	</message>
+	<message name="listMethodsResponse">
+		<part name="body" element="xrd:listMethodsResponse"/>
+	</message>
+	<message name="testSystem">
+		<part name="body" element="xrd:testSystem"/>
+	</message>
+	<message name="testSystemResponse">
+		<part name="body" element="xrd:testSystemResponse"/>
+	</message>
+	<message name="standardheader">
+		<part name="consumer" element="xrd:consumer"/>
+		<part name="producer" element="xrd:producer"/>
+		<part name="userId" element="xrd:userId"/>
+		<part name="service" element="xrd:service"/>
+		<part name="id" element="xrd:id"/>
+	</message>
+	<portType name="HeldinProducerPortType">
+		<!--
+			insert implementation specific operations
+		-->
+		<operation name="addNumbers">
+			<documentation><xrd:title>addNumbers</xrd:title></documentation>
+			<input message="tns:addNumbers"/>
+			<output message="tns:addNumbersResponse"/>
+		</operation>
+		
+		<operation name="listMethods">
+			<documentation><xrd:title>listMethods</xrd:title></documentation>
+			<input message="tns:listMethods"/>
+			<output message="tns:listMethodsResponse"/>
+		</operation>
+		<operation name="testSystem">
+			<documentation><xrd:title>testSystem</xrd:title></documentation>
+			<input message="tns:testSystem"/>
+			<output message="tns:testSystemResponse"/>
+		</operation>
+	</portType>
+	<binding name="HeldinProducerSoapBinding" type="tns:HeldinProducerPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+			<operation name="addNumbers">
+			<soap:operation soapAction="" style="document"/>
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:body parts="body" use="literal"/>
+				<soap:header message="tns:standardheader" part="consumer" use="literal"/>
+				<soap:header message="tns:standardheader" part="producer" use="literal"/>
+				<soap:header message="tns:standardheader" part="userId" use="literal"/>
+				<soap:header message="tns:standardheader" part="id" use="literal"/>
+				<soap:header message="tns:standardheader" part="service" use="literal"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal"/>
+				<soap:header message="tns:standardheader" part="consumer" use="literal"/>
+				<soap:header message="tns:standardheader" part="producer" use="literal"/>
+				<soap:header message="tns:standardheader" part="userId" use="literal"/>
+				<soap:header message="tns:standardheader" part="id" use="literal"/>
+				<soap:header message="tns:standardheader" part="service" use="literal"/>
+			</output>
+		</operation>		<operation name="listMethods">
+			<soap:operation soapAction="listMethods" style="document"/>
+			<input>
+				<soap:body parts="body" use="literal"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal"/>
+			</output>
+		</operation>
+		<operation name="testSystem">
+			<soap:operation soapAction="testSystem" style="document"/>
+			<input>
+				<soap:body parts="body" use="literal"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="HeldinProducerSoapService">
+		<port name="HeldinProducerPort" binding="tns:HeldinProducerSoapBinding">
+			<soap:address location="http://localhost:8080/training/services/kli-util-v1"/>
+			<xrd:title>Heldin Producer Demo</xrd:title>
+			<xrd:address producer="kli-util-v1"/>
+		</port>
+	</service>
+</definitions>

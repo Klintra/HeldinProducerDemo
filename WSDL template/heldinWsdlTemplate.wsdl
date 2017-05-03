@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://<!--PRODUCER-->.x-road.eu/producer" xmlns:wsdl="http://www.w3.org/ns/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xrd="http://x-road.eu/xsd/x-road.xsd" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://<!--PRODUCER-->.x-road.eu/producer">
+	<types>
+		<schema targetNamespace="http://<!--PRODUCER-->.x-road.eu/producer" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-road.eu/xsd/x-road.xsd" schemaLocation="http://x-road.eu/xsd/x-road.xsd"/>
+			<import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime"/>
+		<!--
+			Insert implementation specific schema
+		-->
+
+			</schema>
+	</types>
+		<!--
+		Insert implementation specific messages
+		-->
+	<message name="listMethods">
+		<part name="body" element="xrd:listMethods"/>
+	</message>
+	<message name="listMethodsResponse">
+		<part name="body" element="xrd:listMethodsResponse"/>
+	</message>
+	<message name="testSystem">
+		<part name="body" element="xrd:testSystem"/>
+	</message>
+	<message name="testSystemResponse">
+		<part name="body" element="xrd:testSystemResponse"/>
+	</message>
+	<message name="standardheader">
+		<part name="consumer" element="xrd:consumer"/>
+		<part name="producer" element="xrd:producer"/>
+		<part name="userId" element="xrd:userId"/>
+		<part name="service" element="xrd:service"/>
+		<part name="id" element="xrd:id"/>
+	</message>
+	<portType name="HeldinProducerPortType">
+		<!--
+			insert implementation specific operations
+		-->
+		
+		<operation name="listMethods">
+			<documentation><xrd:title>listMethods</xrd:title></documentation>
+			<input message="tns:listMethods"/>
+			<output message="tns:listMethodsResponse"/>
+		</operation>
+		<operation name="testSystem">
+			<documentation><xrd:title>testSystem</xrd:title></documentation>
+			<input message="tns:testSystem"/>
+			<output message="tns:testSystemResponse"/>
+		</operation>
+	</portType>
+	<binding name="HeldinProducerSoapBinding" type="tns:HeldinProducerPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<!--		
+				Insert implementation specific binding
+		-->
+
+		<operation name="listMethods">
+			<soap:operation soapAction="listMethods" style="document"/>
+			<input>
+				<soap:body parts="body" use="literal"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal"/>
+			</output>
+		</operation>
+		<operation name="testSystem">
+			<soap:operation soapAction="testSystem" style="document"/>
+			<input>
+				<soap:body parts="body" use="literal"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="HeldinProducerSoapService">
+		<port name="HeldinProducerPort" binding="tns:HeldinProducerSoapBinding">
+			<soap:address location="http://localhost:8080/training/services/<!--PRODUCER-->"/>
+			<xrd:title>Heldin Producer Demo</xrd:title>
+			<xrd:address producer="<!--PRODUCER-->"/>
+		</port>
+	</service>
+</definitions>
